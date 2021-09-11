@@ -46,9 +46,17 @@ console.log('typeof',typeof id)
    * below function when is fire user press one of list.
    * this function update current Track in the app
    */
-  const musicItemClickHandler = (e) => {
-    TrackPlayer.skip(id)
-    TrackPlayer.play()
+  const musicItemClickHandler = async (e) => {
+    await TrackPlayer.getQueue()
+      .then(tracks => {
+        tracks.filter((track, index) => {
+          if (track.title === title) {
+            TrackPlayer.skip(index)
+            TrackPlayer.play()
+            return track
+          }
+        })
+      })
   }
 
   return (
@@ -66,7 +74,7 @@ console.log('typeof',typeof id)
             width: 65,
             height: 65,
           }}
-          source={artwork === 'not image' ? require('../src/image/A6.png'):{ uri: artwork }}
+          source={artwork === 'not image' ? require('../src/image/A6.png') : { uri: artwork }}
         />
       </View>
 
@@ -85,19 +93,14 @@ console.log('typeof',typeof id)
               style={{ color: '#fafafa', padding: 0, fontSize: 14 }}>
               {artist}
             </Text>
-            {id === parseInt(currentTrack.id) ? (
+            {id === currentTrack.id ? (
               <Text
                 numberOfLines={1}
                 ellipsizeMode="tail"
                 style={{ color: '#fb8500', padding: 0, fontSize: 10 }}>
                 now playing
               </Text>
-            ) :               <Text
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            style={{ color: '#fb8500', padding: 0, fontSize: 10 }}>
-            not
-          </Text>}
+            ) : null}
           </View>
         </View>
       </View>
