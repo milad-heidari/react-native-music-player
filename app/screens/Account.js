@@ -27,6 +27,8 @@ function Account(
   { navigation,
     getAllPlylistNameAndContent,
     initGetLikedTracksPlaylist,
+    resetPlayerRedux,
+    resetTrackRedux,
     initGetPlaylists, asyncStorageSetItem,
     addMusicTracks, addSortedTracks, setSliderValue }) {
 
@@ -71,10 +73,9 @@ function Account(
                         if (meta.title === undefined) {
                         }else {
 
-                          console.log('test',meta.title)
                           
                           const track = {
-                            id: parseInt(uuid.v1()),
+                            id:uuid.v1(),
                             url: musicItem.path,
                             artist: meta.artist === undefined ? 'no artist' : meta.artist,
                             title: meta.title === undefined ? 'no title' : meta.title,
@@ -85,6 +86,7 @@ function Account(
                           
                           addMusicTracks(track)
                           addSortedTracks(track)
+                          console.log('test',track.id)
                           
                         }
                       });
@@ -135,6 +137,8 @@ function Account(
   })
 
   useEffect(async () => {
+    resetPlayerRedux()
+    resetTrackRedux()
     // AsyncStorage.clear()
     const createStoragePlaylistsLikedTracks = []
     /**
@@ -261,6 +265,20 @@ const mapDispatch = (dispatch) => {
         type: asyncStorageActions.GET_ITEM_METOD_FROM_ASYNC_STORAGE,
         payload
       })
+    },
+    resetTrackRedux:()=>{
+      dispatch(
+        {
+          type:tracksActions.RESET_TRACK_REDUX,
+        }
+      )
+    },
+    resetPlayerRedux:()=>{
+      dispatch(
+        {
+          type:playerActions.RESET_PLAYER_REDUX,
+        }
+      )
     },
   };
 };
