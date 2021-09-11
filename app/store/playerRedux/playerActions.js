@@ -9,4 +9,6 @@ export default {
      * and if true change to false
      */
     SET_IS_SEEKING:'SET_IS_SEEKING',
+
+    RESET_PLAYER_REDUX:'RESET_PLAYER_REDUX'
 }

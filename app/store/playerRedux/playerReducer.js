@@ -39,6 +39,19 @@ const playerReducers = (state = initState, action) => {
     case playerActions.SET_SLIDER_VALUE:
         newState = {...state,sliderValue:action.payload}
       break;
+      case playerActions.RESET_PLAYER_REDUX:
+        console.log('resetP')
+        newState = {
+          test: true,
+          isPlaying: false,
+          isPaused: true,
+          isStoped: false,
+          isEmpty: true,
+          currentTrack: null,
+          sliderValue: 0,
+          isSeeking: false,
+        }
+      break;
     default:
       break;
   }
