@@ -1,7 +1,7 @@
 /**
  * this component for playerControler.
  */
-import React, {useEffect} from 'react';
+import React, {useEffect,useState} from 'react';
 
 import {connect} from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -16,13 +16,14 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import TrackPlayer, {
   useProgress,
   useTrackPlayerEvents,
   Event,
   State,
+  RepeatMode,
 } from 'react-native-track-player';
 
 
@@ -47,6 +48,7 @@ function Controler({
   playlists
 }) {
   const {position, duration} = useProgress();
+  const [repeatModeIcon, setRepeatModeIcon] = useState('repeat-off')
   const navigationNavigator = useNavigation()
 
   //this hook updates the value of the slider whenever the current position of the song changes
@@ -118,6 +120,22 @@ const likedTracksPlaylist = filterLikedTracksPlaylist[0]
 
   const addToPlaylistBtnHandler = (e)=>{
     navigationNavigator.navigate('ListOfPlaylistsNameScreen',currentTrackFromRedux)
+  }
+
+  const repeatModeHandler =async (e)=>{
+    
+    if (repeatModeIcon === 'repeat-off') {
+      setRepeatModeIcon('repeat-once') // repeat-once === RepeatMode.Track
+      await TrackPlayer.setRepeatMode(RepeatMode.Track)
+    } else if (repeatModeIcon === 'repeat-once') {
+      setRepeatModeIcon('repeat') // repeat === RepeatMode.Queue
+      await TrackPlayer.setRepeatMode(RepeatMode.Queue)
+    } else {
+      setRepeatModeIcon('repeat-off')
+      await TrackPlayer.setRepeatMode(RepeatMode.Off)
+    }
+
+    // console.log('repeatModeIcon',typeof await TrackPlayer.getRepeatMode())
   }
 
   // END: this part for main controler buttons handler
@@ -205,6 +223,20 @@ const likedTracksPlaylist = filterLikedTracksPlaylist[0]
       backgroundColor="rgba(0,0,0,0)"
       borderRadius={100}
       onPress={heartBtnHandler}></FontAwesomeIcon.Button>
+  );
+
+  const repeatModeBtn = (
+    <MaterialCommunityIcons.Button
+      iconStyle={{
+        margin: 0,
+        marginRight:0,
+        color: 'rgb(248, 74, 107)',
+      }}
+      name={ repeatModeIcon }
+      size={20}
+      backgroundColor="rgba(0,0,0,0)"
+      borderRadius={100}
+      onPress={repeatModeHandler}></MaterialCommunityIcons.Button>
   );
 
   // END: this part for create main controler buttons
@@ -374,6 +406,9 @@ const likedTracksPlaylist = filterLikedTracksPlaylist[0]
               </View>
               <View style={{marginRight: 10, marginLeft: 10}}>
                 {addToPlaylistBtn}
+              </View>
+              <View style={{marginRight: 10, marginLeft: 10}}>
+                {repeatModeBtn}
               </View>
             </View>
           </ImageBackground>
