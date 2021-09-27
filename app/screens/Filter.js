@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     // bottom: 300,
     width: 150,
     height: 30,
-    shadowColor: '#fff',
+    shadowColor: '#303030',
     shadowOffset: {
       width: 0,
       height: 1,

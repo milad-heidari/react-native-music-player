@@ -145,10 +145,7 @@ const likedTracksPlaylist = filterLikedTracksPlaylist[0]
     <Icon.Button
       iconStyle={{
         margin: 10,
-        marginLeft:10,
-        marginRight:10,
         color: '#ff4a6b',
-        shadowColor: '#fff',
       }}
       name="backward"
       size={20}
@@ -348,8 +345,19 @@ const likedTracksPlaylist = filterLikedTracksPlaylist[0]
       {controlerTemplate === 'mainControler' ? (
         <View style={styles.container}>
           <ImageBackground
+                    imageStyle={{
+                      // display: 'flex',
+                      // flexDirection: 'column',
+                      paddingTop:100,
+                      // alignItems: 'center',
+                      width: '128%',
+                      resizeMode: 'cover',
+                      height: '160%',
+                    }}
             source={require('../src/image/A2.png')}
-            style={styles.imageBackground}>
+            // style={styles.imageBackground}
+            style={{}}
+            >
             <View style={styles.playerSliderContainer}>
               <View style={styles.trackInfo}>
                 <Text numberOfLines={1} ellipsizeMode="tail" style={{color: '#fff', padding: 0, fontSize: 20}}>
@@ -359,6 +367,10 @@ const likedTracksPlaylist = filterLikedTracksPlaylist[0]
                   {currentTrackFromRedux.artist}
                 </Text>
               </View>
+              <View
+                // style={{backgroundColor:'#fff', padding:0}}
+              >
+
               <SmoothSlider
                 value={sliderValue}
                 minimumValue={0}
@@ -370,16 +382,17 @@ const likedTracksPlaylist = filterLikedTracksPlaylist[0]
                   height: 10,
                   width: 300,
                   borderRadius: 4,
-                  backgroundColor: 'white',
+                  backgroundColor: '#0d2742',
                   shadowColor: 'black',
                   shadowOffset: {width: 0, height: 1},
                   shadowRadius: 1,
-                  shadowOpacity: 0.15,
+                  // shadowOpacity: 0.15,
                 }}
-                maximumTrackTintColor="red"
                 minimumTrackTintColor="#e44fde"
+                maximumTrackTintColor="#0d2742"
                 // minimumTrackTintColor="radial-gradient(circle, rgb(32,79,105) 0%, rgb(43,37,73) 100%);"
-              />
+                />
+                </View>
               <View style={styles.trackInfoTimer}>
                 <Text style={{color: '#fff', padding: 0, fontSize: 10}}>
                   {buildPosition(position)}
@@ -390,18 +403,62 @@ const likedTracksPlaylist = filterLikedTracksPlaylist[0]
               </View>
             </View>
             <View style={styles.btnContainer}>
-              <View style={{marginRight: 10, marginLeft: 10}}>
+              <View style={{
+                marginRight: 10, 
+                marginLeft: 10,
+                backgroundColor:'#0c3757',
+                borderRadius:100,
+                shadow: {  
+                  // borderColor:'#000', // if you need 
+                  borderWidth:1,
+                  overflow: 'hidden',
+                  shadowColor: '#000',
+                  shadowRadius: 10,
+                  shadowOpacity: 1,
+                }
+                }}>
                 {backwardBtn}
               </View>
-              <View style={{marginRight: 10, marginLeft: 10}}>
+              <View style={{
+                marginRight: 10, 
+                marginLeft: 10,
+                backgroundColor:'#0c3757',
+                borderRadius:100,
+                shadow: {  
+                  // borderColor:'#000', // if you need 
+                  borderWidth:1,
+                  overflow: 'hidden',
+                  shadowColor: '#000',
+                  shadowRadius: 10,
+                  shadowOpacity: 1,
+                }
+                }}>
                 {isPlaying === false && isPaused === true ? playBtn : pauseBtn}
               </View>
-              <View style={{marginRight: 10, marginLeft: 10}}>
+              <View style={{
+                marginRight: 10, 
+                marginLeft: 10,
+                backgroundColor:'#0c3757',
+                borderRadius:100,
+                shadow: {  
+                  // borderColor:'#000', // if you need 
+                  borderWidth:1,
+                  overflow: 'hidden',
+                  shadowColor: '#000',
+                  shadowRadius: 10,
+                  shadowOpacity: 1,
+                }
+                }}>
                 {forwardBtn}
               </View>
             </View>
             <View style={styles.btnContainer}>
-            <View style={{marginRight: 10, marginLeft: 10}}>
+            <View style={{
+              marginRight: 10, 
+              marginLeft: 10,
+              borderRadius:100,
+              // backgroundColor:'#0c3757',
+              }}>
                 {heartBtn}
               </View>
               <View style={{marginRight: 10, marginLeft: 10}}>
@@ -441,7 +498,7 @@ const likedTracksPlaylist = filterLikedTracksPlaylist[0]
                     height: 10,
                     width: 250,
                     borderRadius: 4,
-                    backgroundColor: 'white',
+                    backgroundColor: '#0d2742',
                     shadowColor: 'black',
                     shadowOffset: {width: 0, height: 1},
                     shadowRadius: 1,
@@ -540,35 +597,39 @@ export default connect(mapState, mapDispatch)(Controler);
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    // justifyContent: 'center',
     // marginTop: 30,
-    paddingBottom: 12,
-    paddingTop:12,
+    height: 245,
+    // paddingBottom: 12,
+    // paddingTop:12,
     // height: 260,
     // borderColor:'red',
     // borderWidth:1,
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    shadowColor: '#fff',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 1.22,
+    backgroundColor: '#2b2549',
+    // backgroundColor: 'blue',
+    // shadowColor: '#fff',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 1,
+    // },
+    // shadowOpacity: 0.5,
+    // shadowRadius: 1.22,
 
-    elevation:0.8,
+    // elevation:0.8,
   },
 
-  imageBackground: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    // paddingBottom:10,
+  // imageBackground: {
+  //   flexDirection: 'column',
+  //   alignItems: 'center',
+  //   width: '100%',
+  //   // height: '100%',
+  //   // backgroundColor:'red',
+  //   // paddingBottom:10,
 
-    resizeMode: 'center',
-  },
+  //   resizeMode: 'cover',
+  // },
 
   trackInfo: {
     flexDirection: 'column',
@@ -587,12 +648,13 @@ const styles = StyleSheet.create({
   },
 
   playerSliderContainer: {
-    flexDirection: 'column',
+    // flexDirection: 'column',
     // justifyContent: 'center',
+    // marginTop:0,
     alignItems: 'center',
-    justifyContent: 'flex-start',
-    backgroundColor: 'rgba(0, 0, 0, 0)',
-    width: Dimensions.get('window').width - 120,
+    // justifyContent: 'flex-start',
+    // backgroundColor: 'rgba(0, 0, 0, 1)',
+    // width: Dimensions.get('window').width - 120,
     // padding: 10,
   },
 
@@ -605,21 +667,22 @@ const styles = StyleSheet.create({
 
 const miniControlerStyles = StyleSheet.create({
   miniControlerItem: {
-    backgroundColor: 'rgba(0, 0, 0,0)',
-    height: 100,
-    marginTop: 4,
+    // backgroundColor: 'rgba(0, 0, 0,0)',
+    // height: 100,
+    // marginTop: 4,
     marginBottom: 4,
-    marginRight: 4,
+    // marginRight: 4,
     marginLeft: 4,
     flexDirection: 'row',
     alignContent: 'space-around',
   },
 
   playPauseBtn: {
-    width: 65,
-    margin: 4,
+    width: 76,
+    // margin: 4,
     // backgroundColor:'blue',
-    padding: 0,
+    // padding: 0,
+    justifyContent:'center',
     flexDirection: 'row',
     alignItems: 'center',
   },

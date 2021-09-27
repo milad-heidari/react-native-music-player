@@ -1,5 +1,5 @@
-import React,{useEffect,useState} from 'react';
-import {connect} from 'react-redux'
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux'
 import {
   View,
   Text,
@@ -15,71 +15,77 @@ import MusicListWithImage from '../layout/MusicListWithImage';
 import tracksActions from '../store/TracksRedux/tracksActions';
 import LinearGradient from 'react-native-linear-gradient'
 
-function PlayList({setCurrentTrackToRedux,currentTrackFromRedux}) {
+function PlayList({ setCurrentTrackToRedux, currentTrackFromRedux }) {
   let isTrackChanged = false;
   const [artwork, setArtwork] = useState(currentTrackFromRedux.artwork)
-  useEffect(()=>{
+  useEffect(() => {
     isTrackChanged = false
-    TrackPlayer.addEventListener('playback-track-changed',async ()=>{
+    TrackPlayer.addEventListener('playback-track-changed', async () => {
       isTrackChanged = true
-      const trackID=await TrackPlayer.getCurrentTrack()
+      const trackID = await TrackPlayer.getCurrentTrack()
       const getTrackInformationObject = await TrackPlayer.getTrack(trackID)
       await setCurrentTrackToRedux(getTrackInformationObject)
       setArtwork(getTrackInformationObject.artwork)
     })
-  },[isTrackChanged]);
+  }, [isTrackChanged]);
 
   return (
-    <LinearGradient colors={['#204f69','#2b2549']} style={{
-      height:"100%"
-      }}>
+    <LinearGradient colors={['#204f69', '#2b2549']} style={{
+      height: "100%"
+    }}>
 
-<ImageBackground
-        source={{uri:artwork}}
+      <ImageBackground
+        source={{ uri: artwork }}
         style={{
           width: '100%',
           flex: 3,
-            opacity: 0.9,
+          opacity: 0.9,
         }}>
-    <ScrollView showsVerticalScrollIndicator={false} style={{
-      backgroundColor: '#263a59',
-      width:'100%',
-    }}>
+        <ScrollView showsVerticalScrollIndicator={false} style={{
+          // backgroundColor: '#263a59',
+          width: '100%',
+        }}>
 
-        <View style={styles.TitleContainer}>
-          <View
-            style={{
-              margin: 0,
-              padding: 0,
-              alignItems: 'center',
-              paddingTop: 16,
-              flex: 1,
-              flexDirection: 'column',
-              position: 'relative',
-            }}>
-            <View>
-              <Text style={styles.ScreenTitle}>P L A Y   L I S T</Text>
+          <View style={styles.TitleContainer}>
+            <View
+              style={{
+                margin: 0,
+                padding: 0,
+                alignItems: 'center',
+                paddingTop: 16,
+                flex: 1,
+                flexDirection: 'column',
+                position: 'relative',
+              }}>
+              <View>
+                <Text style={styles.ScreenTitle}>P L A Y   L I S T</Text>
+              </View>
             </View>
           </View>
-        </View>
-        <View style={styles.containerControlerItems}>
-          <Controler controlerTemplate='miniControler' />
-          <MusicList /> 
-        </View>
-        
-    </ScrollView>
+          <View style={styles.containerControlerItems}>
+            <Controler controlerTemplate='miniControler' />
+            <MusicList />
+          </View>
+
+        </ScrollView>
       </ImageBackground>
-    <View style={styles.DiscoverContainer}>
-            <ImageBackground 
-            source={require('../src/image/A2.png')}
-            style={{
-              flexDirection: 'column',
-              alignItems: 'center',
-              width: '100%',
-              resizeMode: 'center',
-            }}
-            >
-            {/* <View
+      <View style={styles.DiscoverContainer}>
+        <ImageBackground
+          imageStyle={{
+            // display: 'flex',
+            // flexDirection: 'column',
+            paddingTop:100,
+            // alignItems: 'center',
+            width: '128%',
+            resizeMode: 'cover',
+            height: '160%',
+          }}
+          source={require('../src/image/A2.png')}
+          style={{
+            // backgroundColor:'blue',
+          }}
+        >
+          {/* <View
               style={{
                 margin: 0,
                 padding: 0,
@@ -91,44 +97,45 @@ function PlayList({setCurrentTrackToRedux,currentTrackFromRedux}) {
                 flexDirection: 'column',
                 position: 'relative',
               }}> */}
-              {/* <View style={{backgroundColor:'rgba(0, 0, 0,0)'}}> */}
-                {/* <Text style={styles.ScreenTitle}>S H O W M O R E</Text> */}
-              {/* </View> */}
-            {/* </View> */}
-            <View style={styles.ListTitleContainer}>
-              <Text style={{color: '#fff', padding: 0, fontSize: 20}}>
-                Album
-              </Text>
-            </View>
-            <View style={styles.MusicListImageContainer}>
-              <MusicListWithImage />
-
-              
-            </View>
-            </ImageBackground>
+          {/* <View style={{backgroundColor:'rgba(0, 0, 0,0)'}}> */}
+          {/* <Text style={styles.ScreenTitle}>S H O W M O R E</Text> */}
+          {/* </View> */}
+          {/* </View> */}
+          <View style={styles.ListTitleContainer}>
+            <Text style={{ color: '#fff', fontSize: 20 }}>
+              Album
+            </Text>
           </View>
+          <View style={styles.MusicListImageContainer}>
+            <MusicListWithImage />
+
+
+          </View>
+
+        </ImageBackground>
+      </View>
     </LinearGradient>
   );
 }
 
-const mapState=(state)=>{
+const mapState = (state) => {
   return {
-    currentTrackFromRedux : state.tracksRedux.currentTrack,
+    currentTrackFromRedux: state.tracksRedux.currentTrack,
   }
 }
 
-const mapDispatch=(dispatch)=>{
-  return{
-    setCurrentTrackToRedux: (payload) =>{
+const mapDispatch = (dispatch) => {
+  return {
+    setCurrentTrackToRedux: (payload) => {
       dispatch({
-        type:tracksActions.SET_CURRENT_TRACK,
-        payload:payload
+        type: tracksActions.SET_CURRENT_TRACK,
+        payload: payload
       })
     },
   }
 }
 
-export default connect(mapState,mapDispatch)(PlayList);
+export default connect(mapState, mapDispatch)(PlayList);
 
 const styles = StyleSheet.create({
   TitleContainer: {
@@ -138,11 +145,13 @@ const styles = StyleSheet.create({
     // backgroundColor:'blue'
   },
 
-  DiscoverContainer : {
+  DiscoverContainer: {
     // flex: 1,
+    display: 'flex',
     flexDirection: 'column',
-    alignContent:'flex-end',
-    backgroundColor: 'rgba(43,37,73,0)',
+    // alignContent:'flex-end',
+    height: 245,
+    backgroundColor: 'rgba(43,37,73,1)',
     // backgroundColor:'blue'
     // opacity: 0.9
   },
@@ -157,7 +166,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ff4a6b',
     width: 150,
     height: 30,
-    shadowColor: '#fff',
+    shadowColor: '#303030',
     shadowOffset: {
       width: 0,
       height: 1,
@@ -175,23 +184,26 @@ const styles = StyleSheet.create({
 
   ListTitleContainer: {
     flexDirection: 'column',
-    // backgroundColor: '#fff',
-    width: Dimensions.get('window').width - 20,
-    alignItems: 'flex-start',
+    // backgroundColor: 'blue',
+    // width: Dimensions.get('window').width - 20,
+    // alignItems: 'flex-start',
     // paddingLeft:60
+    paddingTop:40,
     marginTop: 4,
     marginLeft: 20,
     marginRight: 20,
   },
 
   MusicListImageContainer: {
-    flexDirection:"column",
-    width:Dimensions.get('window').width ,
-    // backgroundColor:'red'
+    flexDirection: "column",
+    width: Dimensions.get('window').width,
+    // backgroundColor:'red',
     // flex: 1,
+    padding: 16,
+    // margin: 12,
     // marginTop:6,
     // marginLeft:20,
     // marginRight:20,
-    
+
   },
 });

@@ -37,16 +37,20 @@ function NowPlaying({setCurrentArtwork,setCurrentTrackToRedux,currentTrackFromRe
   // const image =`data:image/jpg;base64,${currentTrackFromRedux.artwork}`
   // console.log('dddddddddddd',image)
   return (
+    <LinearGradient colors={['#204f69','#2b2549']} style={styles.container}>
     <ImageBackground
       // source={require('../src/image/pic3.png')}
       source={{uri:artwork}}
       
       style={{
+        // width: '100%',
+        // height: '100%',
+        // backgroundColor:'red',
+        // opacity: 0,
         width: '100%',
-        height: '100%',
+        flex: 3,
         opacity: 0.9,
       }}>
-      <LinearGradient colors={['#204f69','#2b2549']} style={styles.container}>
         <View
           style={{
             margin: 0,
@@ -56,6 +60,7 @@ function NowPlaying({setCurrentArtwork,setCurrentTrackToRedux,currentTrackFromRe
             flex: 1,
             flexDirection: 'column',
             position: 'relative',
+            // opacity: 1,
           }}>
           <View>
             <Text style={styles.ScreenTitle}>N O W  P L A Y I N G</Text>
@@ -66,11 +71,12 @@ function NowPlaying({setCurrentArtwork,setCurrentTrackToRedux,currentTrackFromRe
           style={styles.backgroundImage}
           /> */}
         </View>
-        <View style={styles.controlerContainer}>
+
+    </ImageBackground>
+    <View style={styles.controlerContainer}>
           <Controler controlerTemplate='mainControler' />
         </View>
       </LinearGradient>
-    </ImageBackground>
   );
 }
 
@@ -112,10 +118,10 @@ const styles = StyleSheet.create({
   },
   controlerContainer: {},
   backgroundImage: {
-    resizeMode: 'center',
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height - 400,
-    opacity: 0.3,
+    // resizeMode: 'center',
+    // width: Dimensions.get('window').width,
+    // height: Dimensions.get('window').height - 400,
+    // opacity: 0.3,
     // bottom: 110,
   },
 
@@ -132,7 +138,7 @@ const styles = StyleSheet.create({
     // bottom: 300,
     width: 150,
     height: 30,
-    shadowColor: '#fff',
+    shadowColor: '#303030',
     shadowOffset: {
       width: 0,
       height: 1,
