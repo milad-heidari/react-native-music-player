@@ -16,11 +16,11 @@ const playerReducers = (state = initState, action) => {
 
   switch (action.type) {
     case playerActions.CHANGE_IS_PLAYING:
-      // console.log('pppppppppppppprrrrrrrrrrrrrrr',STATE_PLAYING)
-      // console.log('REEEEEEEEEEEEEEEEE',action)
+      console.log('CHANGE_IS_PLAYING',action.payload)
       newState = {...state, ...action.payload};
       break;
-    case playerActions.CHANGE_IS_PAUSED:
+      case playerActions.CHANGE_IS_PAUSED:
+      console.log('CHANGE_IS_PAUSED',action.payload)
       newState = {...state, ...action.payload};
       break;
 

@@ -69,8 +69,14 @@ const likedTracksPlaylist = filterLikedTracksPlaylist[0]
   useTrackPlayerEvents([Event.PlaybackState], (event) => {
     if (event.state === State.Playing) {
       changeIsPlaying({isPlaying: true});
+      changeIsPaused({
+        isPaused: false,
+      });
     } else {
       changeIsPlaying({isPlaying: false});
+      changeIsPaused({
+        isPaused: true,
+      });
     }
   });
 
