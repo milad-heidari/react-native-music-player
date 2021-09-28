@@ -27,13 +27,13 @@ function MusicListWithImageItem({ artwork, album, tracks, updateSortedTracks }) 
         width: 100,
         height: 100,
         shadowColor: '#ffffff',
-        shadowOffset: {
-          width: 5,
-          height: 5,
-        },
-        shadowOpacity: 0.5,
-        shadowRadius: 12,
-        elevation: 6,
+        // shadowOffset: {
+        //   width: 1,
+        //   height: 1,
+        // },
+        // shadowOpacity: 0.5,
+        // shadowRadius: 1,
+        // elevation: 2,
       }}>
         <Image
           source={artwork === 'not image' ? require('../src/image/A6.png') : { uri: artwork }}
